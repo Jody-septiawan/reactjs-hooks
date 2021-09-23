@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import Welcome from './Welcome';
 import GuestGreeting from './GuestGreeting';
 import ExampleComp from './ExampleComp';
+import List from './components/List';
 
 import { UserContext } from './context/userContext';
 
@@ -60,7 +61,8 @@ function App() {
 
   return (
     <>
-      <ExampleComp />
+      <List />
+      {/* <ExampleComp />
       {state.isLogin ? (
         <Welcome />
       ) : (
@@ -102,7 +104,7 @@ function App() {
             </Row>
           </Container>
         </>
-      )}
+      )} */}
     </>
   );
 }
