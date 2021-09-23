@@ -1,5 +1,5 @@
 //import useState & useEffect here
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
@@ -7,19 +7,23 @@ import Welcome from './Welcome';
 import GuestGreeting from './GuestGreeting';
 import ExampleComp from './ExampleComp';
 
+import { UserContext } from './context/userContext';
+
 function App() {
-  const [state, setState] = useState({
-    isLogin: false,
-    user: {
-      email: '',
-      password: '',
-    },
-  });
+  const [state, dispatch] = useContext(UserContext);
+  console.log(state);
+  //   const [state, setState] = useState({
+  //     isLogin: false,
+  //     user: {
+  //       email: '',
+  //       password: '',
+  //     },
+  //   });
 
   // Create DidMount with useEffect inside it can print "App Component Did Mount" & state value here
   useEffect(() => {
     console.log('App Component Did Mount');
-    console.log(state);
+    // console.log(state);
   });
 
   // Create DidUpdate with useEffect inside it can print "App Component Did Update" & state value here
@@ -34,23 +38,34 @@ function App() {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    setState({
-      isLogin: true,
-      user: {
-        email,
-        password,
-      },
+
+    const data = {
+      email,
+      password,
+    };
+
+    dispatch({
+      type: 'LOGIN_SUCCESS',
+      payload: data,
     });
+
+    // setState({
+    //   isLogin: true,
+    //   user: {
+    //     email,
+    //     password,
+    //   },
+    // });
   };
 
   return (
     <>
-      <ExampleComp user={state.user} />
+      <ExampleComp />
       {state.isLogin ? (
-        <Welcome user={state.user} />
+        <Welcome />
       ) : (
         <>
-          <GuestGreeting user={state.user} />
+          <GuestGreeting />
           <Container>
             <Row className="d-flex justify-content-center mt-5">
               <Col md="4">
